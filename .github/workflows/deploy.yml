@@ -1,0 +1,34 @@
+name: Deploy
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Install SSH key
+        uses: shimataro/ssh-key-action@v2
+        with:
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          known_hosts: ${{ secrets.KNOWN_HOSTS }}
+
+      - name: Deploy API
+        run: |
+          ssh ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_HOST }} '
+            cd /var/www/api &&
+            git pull &&
+            npm install &&
+            npm run build &&
+            pm2 restart api'
+
+      - name: Build and deploy frontend
+        env:
+          VITE_REACT_APP_API_URL: https://max.oseille.app
+        run: |
+          npm ci
+          npm run build
+          scp -r build/* ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_HOST }}:/var/www/html/
