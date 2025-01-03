@@ -23,7 +23,7 @@ jobs:
             git pull &&
             npm install &&
             npm run build &&
-            pm2 restart api'
+            pm2 restart server'
 
       - name: Build and deploy frontend
         env:
