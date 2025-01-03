@@ -11,6 +11,8 @@ function App() {
 
   return (
     <div className="p-4">
+      <div>API URL : {import.meta.env.VITE_REACT_APP_API_URL} </div>
+
       <h1 className="text-2xl font-bold mb-4">API Message:</h1>
       <p>{message || "Loading..."}</p>
     </div>
