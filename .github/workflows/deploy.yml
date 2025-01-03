@@ -32,4 +32,4 @@ jobs:
           cd /var/www/oseille-max-easy/frontend &&
           npm ci
           npm run build
-          scp -r build/* ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_HOST }}:/var/www/html/
+          scp -r dist/* ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_HOST }}:/var/www/html/
