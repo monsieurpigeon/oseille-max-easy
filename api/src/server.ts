@@ -9,7 +9,7 @@ app.use(cors());
 app.use(express.json());
 
 app.get("/api/hello", (_req: Request, res: Response<HelloResponse>) => {
-  res.json({ message: "Hello World!" });
+  res.json({ message: "Vive Modez !" });
 });
 
 app.listen(port, () => {
